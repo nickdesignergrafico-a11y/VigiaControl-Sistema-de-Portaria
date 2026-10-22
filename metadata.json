@@ -1,0 +1,6 @@
+{
+  "name": "VigiaControl - Sistema de Portaria",
+  "description": "Sistema completo para controle de entrada e saída de pessoas, veículos e máquinas pesadas, com gestão de turnos e relatórios automáticos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

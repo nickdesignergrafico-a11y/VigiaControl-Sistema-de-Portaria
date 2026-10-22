@@ -1,0 +1,220 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: roles
+    // Fields:
+    //   - name: string (required)
+    //
+    // Collection: employees
+    // Fields:
+    //   - name: string (required)
+    //   - cpf: string (optional)
+    //   - role_id: string (required) - reference to roles
+    //   - is_watchman: bool (required)
+    //
+    // Collection: vehicles
+    // Fields:
+    //   - brand: string (required)
+    //   - model: string (required)
+    //   - plate: string (required)
+    //   - asset_number: string (optional)
+    //   - responsible_employee_id: string (optional)
+    //
+    // Collection: machines
+    // Fields:
+    //   - type: string (required)
+    //   - brand: string (required)
+    //   - model: string (required)
+    //   - asset_number: string (optional)
+    //   - responsible_employee_id: string (optional)
+    //
+    // Collection: logs
+    // Fields:
+    //   - employee_id: string (optional)
+    //   - vehicle_id: string (optional)
+    //   - machine_id: string (optional)
+    //   - type: string (required, IN/OUT)
+    //   - timestamp: string (required, ISO 8601)
+    //   - km: number (optional)
+    //   - horometer: number (optional)
+    //   - transport_mode: string (optional, RODANDO/PRANCHA)
+    //   - destination: string (optional)
+    //   - watchman_id: string (required)
+    //   - shift_id: string (required)
+    //
+    // Collection: shifts
+    // Fields:
+    //   - watchman_id: string (required)
+    //   - start_time: string (required)
+    //   - end_time: string (optional)
+    //   - status: string (required, ACTIVE/CLOSED)
+    //
+    // Collection: settings
+    // Fields:
+    //   - company_name: string
+    //   - company_logo: string
+    //   - report_email: string
+    //   - smtp_host: string
+    //   - smtp_port: string
+    //   - smtp_user: string
+    //   - smtp_pass: string
+    //
+    // Collection: third_parties
+    // Fields:
+    //   - name: string (required)
+    //   - cpf: string (required)
+    //   - company: string (optional)
+    //   - vehicle_plate: string (optional)
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return true;
+    }
+
+    function isAdmin() {
+      return true;
+    }
+
+    function isValidEmail(email) {
+      return email is string &&
+        email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    function isValidDateString(dateStr) {
+      return dateStr is string &&
+        dateStr.matches("^\\d{4}-\\d{2}-\\d{2}T.*$");
+    }
+
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+
+    function isValidEmployee(data) {
+      return data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
+             data.role_id is string &&
+             data.is_watchman is bool &&
+             (!('is_admin' in data) || data.is_admin is bool) &&
+             (!('cpf' in data) || (data.cpf == null || data.cpf is string));
+    }
+
+    function isValidVehicle(data) {
+      return data.brand is string && data.brand.size() > 0 &&
+             data.model is string && data.model.size() > 0 &&
+             data.plate is string && data.plate.size() > 0 &&
+             (!('asset_number' in data) || (data.asset_number == null || data.asset_number is string)) &&
+             (!('responsible_employee_id' in data) || (data.responsible_employee_id == null || data.responsible_employee_id is string));
+    }
+
+    function isValidMachine(data) {
+      return data.type is string && data.type.size() > 0 &&
+             data.brand is string && data.brand.size() > 0 &&
+             data.model is string && data.model.size() > 0 &&
+             (!('asset_number' in data) || (data.asset_number == null || data.asset_number is string)) &&
+             (!('responsible_employee_id' in data) || (data.responsible_employee_id == null || data.responsible_employee_id is string));
+    }
+
+    function isValidLog(data) {
+      return data.type in ['IN', 'OUT'] &&
+             isValidDateString(data.timestamp) &&
+             (!('watchman_id' in data) || (data.watchman_id == null || data.watchman_id is string)) &&
+             (!('shift_id' in data) || (data.shift_id == null || data.shift_id is string)) &&
+             (!('has_uniform' in data) || (data.has_uniform == null || data.has_uniform is bool)) &&
+             (!('has_badge' in data) || (data.has_badge == null || data.has_badge is bool)) &&
+             (!('employee_id' in data) || (data.employee_id == null || data.employee_id is string)) &&
+             (!('employee_name' in data) || (data.employee_name == null || data.employee_name is string)) &&
+             (!('vehicle_id' in data) || (data.vehicle_id == null || data.vehicle_id is string)) &&
+             (!('vehicle_plate' in data) || (data.vehicle_plate == null || data.vehicle_plate is string)) &&
+             (!('vehicle_asset' in data) || (data.vehicle_asset == null || data.vehicle_asset is string)) &&
+             (!('machine_id' in data) || (data.machine_id == null || data.machine_id is string)) &&
+             (!('machine_type' in data) || (data.machine_type == null || data.machine_type is string)) &&
+             (!('machine_asset' in data) || (data.machine_asset == null || data.machine_asset is string)) &&
+             (!('third_party_id' in data) || (data.third_party_id == null || data.third_party_id is string)) &&
+             (!('third_party_name' in data) || (data.third_party_name == null || data.third_party_name is string)) &&
+             (!('third_party_cpf' in data) || (data.third_party_cpf == null || data.third_party_cpf is string)) &&
+             (!('km' in data) || (data.km == null || data.km is number)) &&
+             (!('horometer' in data) || (data.horometer == null || data.horometer is number)) &&
+             (!('transport_mode' in data) || (data.transport_mode == null || data.transport_mode in ['RODANDO', 'PRANCHA'])) &&
+             (!('destination' in data) || (data.destination == null || data.destination is string));
+    }
+
+    function isValidThirdParty(data) {
+      return data.name is string && data.name.size() > 0 &&
+             (!('cpf' in data) || (data.cpf == null || data.cpf is string)) &&
+             (!('company' in data) || (data.company == null || data.company is string)) &&
+             (!('vehicle_plate' in data) || (data.vehicle_plate == null || data.vehicle_plate is string));
+    }
+
+    function isValidShift(data) {
+      return data.watchman_id is string &&
+             isValidDateString(data.start_time) &&
+             data.status in ['ACTIVE', 'CLOSED'] &&
+             (!('end_time' in data) || (data.end_time == null || isValidDateString(data.end_time)));
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /roles/{roleId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    match /employees/{employeeId} {
+      allow read: if isAuthenticated();
+      // Only admins can set is_admin to true
+      allow create, update: if isAuthenticated() && isValidEmployee(request.resource.data) && 
+        (!('is_admin' in request.resource.data) || request.resource.data.is_admin == false || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    match /vehicles/{vehicleId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated() && isValidVehicle(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    match /machines/{machineId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated() && isValidMachine(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    match /logs/{logId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated() && isValidLog(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    match /shifts/{shiftId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isValidShift(request.resource.data);
+      allow update: if isAuthenticated() && isValidShift(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    match /settings/{settingId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    match /third_parties/{tpId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated() && isValidThirdParty(request.resource.data);
+      allow delete: if isAdmin();
+    }
+  }
+}

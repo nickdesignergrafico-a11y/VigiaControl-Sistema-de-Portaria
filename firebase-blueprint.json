@@ -1,0 +1,125 @@
+{
+  "entities": {
+    "Employee": {
+      "title": "Employee",
+      "description": "System user or worker",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "cpf": { "type": "string" },
+        "role_id": { "type": "string" },
+        "is_watchman": { "type": "boolean" },
+        "is_admin": { "type": "boolean" }
+      },
+      "required": ["name", "role_id"]
+    },
+    "Role": {
+      "title": "Role",
+      "description": "Job position",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" }
+      },
+      "required": ["name"]
+    },
+    "Vehicle": {
+      "title": "Vehicle",
+      "description": "Trucks and other vehicles",
+      "type": "object",
+      "properties": {
+        "brand": { "type": "string" },
+        "model": { "type": "string" },
+        "plate": { "type": "string" },
+        "asset_number": { "type": "string" },
+        "responsible_employee_id": { "type": "string" }
+      },
+      "required": ["brand", "model", "plate"]
+    },
+    "Machine": {
+      "title": "Machine",
+      "description": "Heavy machinery",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string" },
+        "brand": { "type": "string" },
+        "model": { "type": "string" },
+        "asset_number": { "type": "string" },
+        "responsible_employee_id": { "type": "string" }
+      },
+      "required": ["type", "brand", "model"]
+    },
+    "Log": {
+      "title": "Log",
+      "description": "Entry/Exit record",
+      "type": "object",
+      "properties": {
+        "employee_id": { "type": "string" },
+        "vehicle_id": { "type": "string" },
+        "machine_id": { "type": "string" },
+        "third_party_id": { "type": "string" },
+        "type": { "type": "string", "enum": ["IN", "OUT"] },
+        "timestamp": { "type": "string" },
+        "km": { "type": "number" },
+        "horometer": { "type": "number" },
+        "transport_mode": { "type": "string", "enum": ["RODANDO", "PRANCHA"] },
+        "destination": { "type": "string" },
+        "watchman_id": { "type": "string" },
+        "shift_id": { "type": "string" },
+        "has_uniform": { "type": "boolean" },
+        "has_badge": { "type": "boolean" },
+        "third_party_name": { "type": "string" },
+        "third_party_cpf": { "type": "string" },
+        "photo": { "type": "string", "description": "Base64 encoded photo of the vehicle" }
+      },
+      "required": ["type", "timestamp", "watchman_id", "shift_id", "has_uniform", "has_badge"]
+    },
+    "ThirdParty": {
+      "title": "ThirdParty",
+      "description": "Visitors or contractors",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "cpf": { "type": "string" },
+        "company": { "type": "string" },
+        "vehicle_plate": { "type": "string" }
+      },
+      "required": ["name", "cpf"]
+    },
+    "Shift": {
+      "title": "Shift",
+      "description": "Watchman work session",
+      "type": "object",
+      "properties": {
+        "watchman_id": { "type": "string" },
+        "start_time": { "type": "string" },
+        "end_time": { "type": "string" },
+        "status": { "type": "string", "enum": ["ACTIVE", "CLOSED"] }
+      },
+      "required": ["watchman_id", "start_time", "status"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Company configuration",
+      "type": "object",
+      "properties": {
+        "company_name": { "type": "string" },
+        "company_logo": { "type": "string" },
+        "report_email": { "type": "string" },
+        "smtp_host": { "type": "string" },
+        "smtp_port": { "type": "string" },
+        "smtp_user": { "type": "string" },
+        "smtp_pass": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "employees": { "schema": "Employee", "description": "Collection of employees" },
+    "roles": { "schema": "Role", "description": "Collection of job roles" },
+    "vehicles": { "schema": "Vehicle", "description": "Collection of vehicles" },
+    "machines": { "schema": "Machine", "description": "Collection of machines" },
+    "logs": { "schema": "Log", "description": "Collection of entry/exit logs" },
+    "shifts": { "schema": "Shift", "description": "Collection of work shifts" },
+    "settings": { "schema": "Settings", "description": "Global settings" },
+    "third_parties": { "schema": "ThirdParty", "description": "Collection of third parties" }
+  }
+}

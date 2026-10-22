@@ -1,0 +1,173 @@
+{
+  "roles": {
+    "EZzkjovRVKvhW4pWlrxS": {
+      "name": "Vigia",
+      "id": "EZzkjovRVKvhW4pWlrxS"
+    },
+    "dy9ONQVKrzT3sGddOb65": {
+      "name": "Vigia",
+      "id": "dy9ONQVKrzT3sGddOb65"
+    },
+    "u0KP54JGGFCdJVRLenua": {
+      "name": "Vigia",
+      "id": "u0KP54JGGFCdJVRLenua"
+    },
+    "doc_1787502063549_bnjxlg6": {
+      "name": "Motorista",
+      "id": "doc_1787502063549_bnjxlg6"
+    },
+    "doc_1787502064078_585klvx": {
+      "name": "Operador",
+      "id": "doc_1787502064078_585klvx"
+    },
+    "doc_1787502064752_ijun09v": {
+      "name": "Encarregado",
+      "id": "doc_1787502064752_ijun09v"
+    },
+    "doc_1787502065172_9qi8iuh": {
+      "name": "Engenheiro",
+      "id": "doc_1787502065172_9qi8iuh"
+    },
+    "doc_1787502065656_z7fyi6o": {
+      "name": "Mecânico",
+      "id": "doc_1787502065656_z7fyi6o"
+    },
+    "doc_1787502066259_6v7xoj2": {
+      "name": "Auxiliar de Mecânico",
+      "id": "doc_1787502066259_6v7xoj2"
+    },
+    "doc_1787502066602_slu2qok": {
+      "name": "Almoxarifado",
+      "id": "doc_1787502066602_slu2qok"
+    },
+    "doc_1787502067092_pbb1y1m": {
+      "name": "Gerente Administrativo",
+      "id": "doc_1787502067092_pbb1y1m"
+    },
+    "doc_1787502067508_5d6e8qy": {
+      "name": "Gerente de Oficina Mecânica",
+      "id": "doc_1787502067508_5d6e8qy"
+    },
+    "8Ic7UC2UxNDdnpJriYGD": {
+      "name": "Vigia",
+      "id": "8Ic7UC2UxNDdnpJriYGD"
+    },
+    "Kbwh08Y1SimzfyxY1EJ2": {
+      "name": "Motorista",
+      "id": "Kbwh08Y1SimzfyxY1EJ2"
+    },
+    "PNbXe6ZsxgbvPpwd6gch": {
+      "name": "Operador",
+      "id": "PNbXe6ZsxgbvPpwd6gch"
+    },
+    "oGgaWeHS2kMXUEkctJns": {
+      "name": "Encarregado",
+      "id": "oGgaWeHS2kMXUEkctJns"
+    },
+    "d6LpRhOGDnzjHgF3UQzj": {
+      "name": "Engenheiro",
+      "id": "d6LpRhOGDnzjHgF3UQzj"
+    },
+    "GnTW5ANGak62CuiMPqel": {
+      "name": "Mecânico",
+      "id": "GnTW5ANGak62CuiMPqel"
+    },
+    "zGg6O49JA0pVKtCxJgZ7": {
+      "name": "Auxiliar de Mecânico",
+      "id": "zGg6O49JA0pVKtCxJgZ7"
+    },
+    "TbVT9k5k3hh1tWVM1w6g": {
+      "name": "Almoxarifado",
+      "id": "TbVT9k5k3hh1tWVM1w6g"
+    },
+    "dNR8ugxiqjoIY0scAWxn": {
+      "name": "Gerente Administrativo",
+      "id": "dNR8ugxiqjoIY0scAWxn"
+    },
+    "YZdiiUcOwgiQkQGNgGQw": {
+      "name": "Gerente de Oficina Mecânica",
+      "id": "YZdiiUcOwgiQkQGNgGQw"
+    }
+  },
+  "settings": {
+    "global": {
+      "company_name": "VigiaControl",
+      "company_logo": "",
+      "client_company_name": "",
+      "report_email": "",
+      "smtp_host": "",
+      "smtp_port": "587",
+      "smtp_user": "",
+      "smtp_pass": "",
+      "id": "global"
+    }
+  },
+  "shifts": {
+    "4rDe7FmsN5T4VojF3oN3": {
+      "watchman_id": "admin",
+      "watchman_name": "Administrador",
+      "start_time": "2026-08-23T16:22:55.815Z",
+      "status": "ACTIVE",
+      "id": "4rDe7FmsN5T4VojF3oN3"
+    },
+    "k987mkvlPr7s6bOWhcnI": {
+      "start_time": "2026-08-23T16:30:50.714Z",
+      "status": "ACTIVE",
+      "watchman_name": "ENIKERSOM MOREIRA DA CRUZ",
+      "watchman_id": "hxHNADXbZ0p7L3LYhb8s",
+      "id": "k987mkvlPr7s6bOWhcnI"
+    },
+    "zPhl9Lx0mywcOQddYPNQ": {
+      "start_time": "2026-08-23T17:14:29.504Z",
+      "watchman_id": "L3Z0Gfl2mB68ElfZvy9u",
+      "watchman_name": "Nick",
+      "status": "CLOSED",
+      "id": "zPhl9Lx0mywcOQddYPNQ",
+      "end_time": "2026-09-01T16:15:48.481Z",
+      "auto_closed": true,
+      "report_sent": false
+    }
+  },
+  "employees": {
+    "L3Z0Gfl2mB68ElfZvy9u": {
+      "cpf": "",
+      "role_name": "Administrador Master",
+      "is_admin": true,
+      "photo": "https://lh3.googleusercontent.com/a/ACg8ocLASyxmnuBZyOlcZYRNAme70No4GeEyDU6jM1h6vbsox0zuRP0n=s96-c",
+      "is_watchman": true,
+      "email": "nickdesignergrafico@gmail.com",
+      "created_at": "2026-08-23T16:56:26.566Z",
+      "role_id": "admin",
+      "name": "Nick",
+      "id": "L3Z0Gfl2mB68ElfZvy9u"
+    },
+    "hxHNADXbZ0p7L3LYhb8s": {
+      "photo": null,
+      "is_admin": false,
+      "role_name": "Vigia",
+      "name": "ENIKERSOM MOREIRA DA CRUZ",
+      "is_watchman": true,
+      "password": "796072",
+      "editingId": null,
+      "cpf": "79607276191",
+      "role_id": "EZzkjovRVKvhW4pWlrxS",
+      "id": "hxHNADXbZ0p7L3LYhb8s"
+    }
+  },
+  "vehicles": {},
+  "machines": {
+    "V7m4lokzO3WFE2aqIT8s": {
+      "brand": "Case",
+      "model": "RSE26",
+      "asset_number": "ME.010",
+      "responsible_employee_id": "",
+      "type": "Mini Escavadeira",
+      "id": "V7m4lokzO3WFE2aqIT8s"
+    }
+  },
+  "logs": {},
+  "patrol_points": {},
+  "patrol_scans": {},
+  "visitors": {},
+  "temporary_passes": {}
+}
